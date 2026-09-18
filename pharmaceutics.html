@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmaceutics — KK Enterprises</title>
+    <meta name="description"
+        content="Formulation, drying, dissolution and dosage-form equipment covering the full pharmaceutics syllabus.">
+    <style>
+        /* ================= KK ENTERPRISES — DESIGN SYSTEM =================
+   Palette drawn from brand mark: purple > magenta > orange > red-orange
+   Concept: precision instrumentation — blueprint grids, crosshair marks,
+   spec-sheet mono type, drafting-line motion.
+==================================================================== */
+
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --paper: #EFF1EC;
+            --paper-2: #E7E9E3;
+            --card: #FFFFFF;
+            --ink: #14181D;
+            --ink-dim: #4B535C;
+            --ink-faint: #848D95;
+            --line: rgba(20, 24, 29, 0.14);
+            --line-soft: rgba(20, 24, 29, 0.08);
+
+            --purple: #7a2c8e;
+            --magenta: #c43d8e;
+            --orange: #f5a623;
+            --redorange: #e8432f;
+            --rose: #a13a5e;
+            --grad: linear-gradient(100deg, var(--purple) 0%, var(--magenta) 38%, var(--orange) 72%, var(--redorange) 100%);
+            --grad-soft: linear-gradient(100deg, rgba(122, 44, 142, 0.10), rgba(196, 61, 142, 0.08), rgba(245, 166, 35, 0.09), rgba(232, 67, 47, 0.10));
+
+            --ease: cubic-bezier(.16, .84, .44, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--paper);
+            color: var(--ink);
+            font-family: 'Inter', sans-serif;
+            font-size: 15.5px;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: var(--orange);
+            color: var(--ink);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--orange);
+            outline-offset: 3px;
+            border-radius: 2px;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .display {
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: -0.01em;
+            font-weight: 600;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .grad-text {
+            background: var(--grad);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        .blueprint {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(var(--line-soft) 1px, transparent 1px),
+                linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+            background-size: 64px 64px;
+            mask-image: radial-gradient(120% 90% at 50% 0%, #000 30%, transparent 85%);
+            opacity: 0.5;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(239, 241, 236, 0.86);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .nav-inner {
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 18px clamp(20px, 4vw, 48px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .brand svg {
+            width: 34px;
+            height: 34px;
+        }
+
+        .brand .name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 1.15;
+        }
+
+        .brand .name small {
+            display: block;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 400;
+            font-size: 9.5px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-faint);
+        }
+
+        nav.links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        nav.links>a,
+        .has-dropdown>button {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--ink-dim);
+            padding: 10px 14px;
+            border-radius: 8px;
+            transition: color .2s, background .2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: none;
+            border: none;
+            font-family: inherit;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        nav.links>a:hover,
+        .has-dropdown:hover>button,
+        .has-dropdown>button[aria-expanded="true"] {
+            color: var(--ink);
+            background: var(--paper-2);
+        }
+
+        nav.links a.current {
+            color: var(--ink);
+        }
+
+        .has-dropdown {
+            position: relative;
+        }
+
+        .has-dropdown button svg {
+            width: 11px;
+            height: 11px;
+            transition: transform .3s var(--ease);
+        }
+
+        .has-dropdown:hover button svg,
+        .has-dropdown button[aria-expanded="true"] svg {
+            transform: rotate(180deg);
+        }
+
+        .dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            min-width: 300px;
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            box-shadow: 0 20px 45px -18px rgba(20, 24, 29, 0.28);
+            padding: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: opacity .25s var(--ease), transform .25s var(--ease), visibility .25s;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .has-dropdown:hover .dropdown,
+        .has-dropdown .dropdown.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 12px;
+            border-radius: 9px;
+            font-size: 13.5px;
+            color: var(--ink-dim);
+            transition: background .2s, color .2s;
+        }
+
+        .dropdown a:hover {
+            background: var(--paper);
+            color: var(--ink);
+        }
+
+        .dropdown a .swatch {
+            width: 8px;
+            height: 8px;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        .dropdown .cat-desc {
+            display: block;
+            font-size: 11px;
+            color: var(--ink-faint);
+            margin-top: 1px;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: var(--line-soft);
+            margin: 6px 8px;
+        }
+
+        .dropdown .view-all {
+            font-size: 12px;
+            color: var(--purple);
+            font-weight: 600;
+        }
+
+        .nav-cta {
+            font-size: 13px;
+            font-weight: 600;
+            color: #fff;
+            background: var(--ink);
+            padding: 11px 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform .3s var(--ease), background .3s;
+            white-space: nowrap;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            background: var(--purple);
+        }
+
+        .menu-toggle {
+            display: none;
+        }
+
+        @media(max-width:1080px) {
+            nav.links {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: flex;
+                width: 38px;
+                height: 38px;
+                align-items: center;
+                justify-content: center;
+                border: 1px solid var(--line);
+                border-radius: 8px;
+                background: none;
+                cursor: pointer;
+            }
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 11px;
+            color: var(--ink-faint);
+            margin-bottom: 20px;
+        }
+
+        .eyebrow .tick {
+            width: 20px;
+            height: 1px;
+            background: var(--grad);
+        }
+
+        section {
+            position: relative;
+            z-index: 2;
+            padding: 110px clamp(20px, 4vw, 48px);
+        }
+
+        .wrap {
+            max-width: 1360px;
+            margin: 0 auto;
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 40px;
+            margin-bottom: 56px;
+            flex-wrap: wrap;
+        }
+
+        .section-head h2 {
+            font-size: clamp(28px, 3.4vw, 44px);
+            line-height: 1.08;
+            max-width: 16ch;
+        }
+
+        .section-note {
+            max-width: 340px;
+            font-size: 14px;
+            color: var(--ink-dim);
+            line-height: 1.65;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .8s var(--ease), transform .8s var(--ease);
+        }
+
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13.5px;
+            font-weight: 600;
+            padding: 14px 26px;
+            border-radius: 9px;
+            transition: transform .3s var(--ease), background .3s, color .3s, border-color .3s;
+            border: 1px solid transparent;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .btn-solid {
+            background: var(--ink);
+            color: #fff;
+        }
+
+        .btn-solid:hover {
+            background: var(--purple);
+            transform: translateY(-2px);
+        }
+
+        .btn-grad {
+            background: var(--grad);
+            color: #fff;
+        }
+
+        .btn-grad:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.05);
+        }
+
+        .btn-line {
+            border-color: var(--line);
+            color: var(--ink);
+            background: transparent;
+        }
+
+        .btn-line:hover {
+            border-color: var(--ink);
+            background: var(--card);
+        }
+
+        .spec-card {
+            position: relative;
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 26px;
+            transition: border-color .35s, box-shadow .35s, transform .35s var(--ease);
+        }
+
+        .spec-card:hover {
+            border-color: transparent;
+            box-shadow: 0 26px 60px -24px rgba(20, 24, 29, 0.22);
+            transform: translateY(-4px);
+        }
+
+        .crosshair {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            opacity: 0;
+            transition: opacity .35s;
+            pointer-events: none;
+        }
+
+        .crosshair::before,
+        .crosshair::after {
+            content: '';
+            position: absolute;
+            background: var(--orange);
+        }
+
+        .crosshair::before {
+            width: 100%;
+            height: 1.4px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .crosshair::after {
+            height: 100%;
+            width: 1.4px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .crosshair.tl {
+            top: 10px;
+            left: 10px;
+        }
+
+        .crosshair.tr {
+            top: 10px;
+            right: 10px;
+        }
+
+        .crosshair.bl {
+            bottom: 10px;
+            left: 10px;
+        }
+
+        .crosshair.br {
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .spec-card:hover .crosshair {
+            opacity: 0.9;
+        }
+
+        footer {
+            position: relative;
+            z-index: 2;
+            background: var(--ink);
+            color: rgba(239, 241, 236, 0.72);
+            padding: 76px clamp(20px, 4vw, 48px) 34px;
+        }
+
+        .foot-grid {
+            max-width: 1360px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 50px;
+            flex-wrap: wrap;
+            padding-bottom: 50px;
+            border-bottom: 1px solid rgba(239, 241, 236, 0.14);
+        }
+
+        .foot-brand .brand .name,
+        .foot-brand .brand .name small {
+            color: #EFF1EC;
+        }
+
+        .foot-brand p {
+            max-width: 280px;
+            margin-top: 16px;
+            font-size: 13.5px;
+            line-height: 1.7;
+            color: rgba(239, 241, 236, 0.55);
+        }
+
+        .foot-cols {
+            display: flex;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .foot-col h4 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10.5px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(239, 241, 236, 0.45);
+            margin-bottom: 16px;
+        }
+
+        .foot-col a {
+            display: block;
+            font-size: 13.5px;
+            margin-bottom: 11px;
+            color: rgba(239, 241, 236, 0.75);
+            transition: color .2s;
+        }
+
+        .foot-col a:hover {
+            color: var(--orange);
+        }
+
+        .foot-bottom {
+            max-width: 1360px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            padding-top: 26px;
+            flex-wrap: wrap;
+            gap: 14px;
+            font-size: 11.5px;
+            color: rgba(239, 241, 236, 0.4);
+        }
+
+        @media(max-width:640px) {
+            section {
+                padding: 80px 20px;
+            }
+        }
+
+        /* ---------- mobile nav ---------- */
+        .mobile-nav {
+            display: none;
+            flex-direction: column;
+            gap: 2px;
+            padding: 10px 20px 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .4s var(--ease);
+            border-top: 1px solid var(--line);
+        }
+
+        .mobile-nav.open {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .mobile-nav a {
+            padding: 12px 4px;
+            font-size: 14px;
+            color: var(--ink-dim);
+            border-bottom: 1px solid var(--line-soft);
+        }
+
+        .mobile-nav .grp {
+            font-size: 10.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--ink-faint);
+            padding: 14px 4px 4px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        @media(max-width:1080px) {
+            .mobile-nav {
+                display: flex;
+            }
+        }
+
+        header.scrolled {
+            box-shadow: 0 2px 20px -8px rgba(20, 24, 29, 0.1);
+        }
+
+        /* ---------- HOME: hero ---------- */
+        .hero {
+            padding-top: 70px;
+            padding-bottom: 70px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 4.4vw, 60px);
+            line-height: 1.06;
+            max-width: 15ch;
+        }
+
+        .hero-sub {
+            margin-top: 22px;
+            max-width: 460px;
+            font-size: 15.5px;
+            color: var(--ink-dim);
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            margin-top: 34px;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .hero-badges {
+            margin-top: 46px;
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .hero-badges .b {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            color: var(--ink-dim);
+        }
+
+        .hero-badges .b svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--purple);
+            flex-shrink: 0;
+        }
+
+        .hero-diagram {
+            position: relative;
+            aspect-ratio: 1/1;
+        }
+
+        .hero-diagram svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .spin-slow {
+            transform-origin: 250px 250px;
+            animation: spin 40s linear infinite;
+        }
+
+        .spin-slow-rev {
+            transform-origin: 250px 250px;
+            animation: spinrev 55s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spinrev {
+            to {
+                transform: rotate(-360deg);
+            }
+        }
+
+        .draw {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: draw 2.6s var(--ease) forwards;
+        }
+
+        @keyframes draw {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .tick-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            fill: var(--ink-faint);
+        }
+
+        .stat-bar {
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            padding: 44px clamp(20px, 4vw, 48px);
+        }
+
+        .stat-bar .wrap {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 28px;
+        }
+
+        .stat-bar .stat b {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(26px, 2.6vw, 36px);
+            display: block;
+        }
+
+        .stat-bar .stat span {
+            font-size: 11.5px;
+            color: var(--ink-faint);
+        }
+
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .cat-grid.cols-5 {
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        .cat-card {
+            position: relative;
+            border-radius: 18px;
+            overflow: hidden;
+            padding: 26px;
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            border: 1px solid var(--line);
+            background: var(--card);
+            transition: transform .4s var(--ease);
+        }
+
+        .cat-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .cat-card .bg {
+            position: absolute;
+            inset: 0;
+            opacity: 0.9;
+            transition: transform .6s var(--ease);
+            z-index: 0;
+        }
+
+        .cat-card:hover .bg {
+            transform: scale(1.06);
+        }
+
+        .cat-card .content {
+            position: relative;
+            z-index: 1;
+            color: #fff;
+        }
+
+        .cat-card h3 {
+            font-size: 19px;
+            margin-bottom: 6px;
+            line-height: 1.15;
+        }
+
+        .cat-card p {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.82);
+        }
+
+        .cat-card .count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .cat-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 30%, rgba(0, 0, 0, 0.55));
+            z-index: 0;
+        }
+
+        .product-mini-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .mini-card .thumb {
+            aspect-ratio: 4/3;
+            border-radius: 12px;
+            margin-bottom: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mini-card h4 {
+            font-size: 14.5px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .mini-card .model {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--ink-faint);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--line);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .why-item {
+            background: var(--card);
+            padding: 32px 26px;
+        }
+
+        .why-item .num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--ink-faint);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .why-item h4 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .why-item p {
+            font-size: 13px;
+            color: var(--ink-dim);
+            line-height: 1.6;
+        }
+
+        .cta-band {
+            background: var(--ink);
+            border-radius: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-band .wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-band h2 {
+            color: #fff;
+            font-size: clamp(26px, 3vw, 38px);
+            max-width: 12ch;
+        }
+
+        .cta-band p {
+            color: rgba(239, 241, 236, 0.6);
+            margin-top: 10px;
+            max-width: 32ch;
+            font-size: 14px;
+        }
+
+        .cta-band::before {
+            content: '';
+            position: absolute;
+            width: 60%;
+            aspect-ratio: 1;
+            right: -10%;
+            top: 50%;
+            transform: translateY(-50%);
+            background: conic-gradient(from 0deg, var(--purple), var(--magenta), var(--orange), var(--redorange), var(--purple));
+            filter: blur(100px);
+            opacity: 0.25;
+            animation: spin 20s linear infinite;
+        }
+
+        /* ---------- ABOUT ---------- */
+        .about-hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-hero h1 {
+            font-size: clamp(32px, 4vw, 50px);
+            line-height: 1.08;
+            max-width: 13ch;
+        }
+
+        .about-hero p {
+            margin-top: 22px;
+            color: var(--ink-dim);
+            font-size: 15px;
+            line-height: 1.75;
+            max-width: 480px;
+        }
+
+        .figure-block {
+            aspect-ratio: 4/3.4;
+            border-radius: 18px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .figure-block .tag {
+            position: absolute;
+            bottom: 18px;
+            left: 18px;
+            background: rgba(255, 255, 255, 0.92);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10.5px;
+            color: var(--ink);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 0;
+        }
+
+        .timeline-track {
+            position: relative;
+            border-top: 1px solid var(--line);
+            margin-top: 6px;
+        }
+
+        .timeline-items {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            margin-top: -1px;
+        }
+
+        .timeline-item {
+            padding-top: 30px;
+            position: relative;
+        }
+
+        .timeline-item .node {
+            position: absolute;
+            top: -6px;
+            left: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--paper);
+            border: 2px solid var(--line);
+            transition: border-color .4s, box-shadow .4s;
+        }
+
+        .timeline-item.reveal.in .node {
+            border-color: var(--orange);
+            box-shadow: 0 0 0 5px rgba(245, 166, 35, 0.14);
+        }
+
+        .timeline-item .yr {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--purple);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .timeline-item h4 {
+            font-size: 14.5px;
+            margin-bottom: 6px;
+        }
+
+        .timeline-item p {
+            font-size: 12.5px;
+            color: var(--ink-dim);
+            line-height: 1.6;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+        }
+
+        .value-card {
+            padding: 30px 26px;
+        }
+
+        .value-card .ico {
+            width: 44px;
+            height: 44px;
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 22px;
+            background: var(--grad-soft);
+        }
+
+        .value-card .ico svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--purple);
+        }
+
+        .value-card h4 {
+            font-size: 15.5px;
+            margin-bottom: 9px;
+        }
+
+        .value-card p {
+            font-size: 13px;
+            color: var(--ink-dim);
+            line-height: 1.6;
+        }
+
+        .cert-strip {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 36px 0;
+        }
+
+        .cert-strip .c {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--ink-dim);
+        }
+
+        .cert-strip .c b {
+            color: var(--ink);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* ---------- PRODUCTS ---------- */
+        .product-hero {
+            padding-bottom: 40px;
+        }
+
+        .product-hero h1 {
+            font-size: clamp(30px, 4.2vw, 50px);
+            max-width: 17ch;
+        }
+
+        .product-hero p {
+            margin-top: 18px;
+            max-width: 560px;
+            color: var(--ink-dim);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .cat-jump {
+            display: flex;
+            gap: 10px;
+            margin-top: 36px;
+            flex-wrap: wrap;
+        }
+
+        .cat-jump a {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 9px 16px;
+            border-radius: 100px;
+            border: 1px solid var(--line);
+            color: var(--ink-dim);
+            transition: all .25s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cat-jump a:hover {
+            border-color: var(--ink);
+            color: var(--ink);
+        }
+
+        .cat-jump a .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+        }
+
+        .category-section {
+            scroll-margin-top: 100px;
+            border-top: 1px solid var(--line);
+        }
+
+        .category-head {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 30px;
+            margin-bottom: 44px;
+            flex-wrap: wrap;
+        }
+
+        .category-head .tag-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .category-head .tag-row .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 2px;
+        }
+
+        .category-head h2 {
+            font-size: clamp(24px, 2.8vw, 36px);
+        }
+
+        .category-head p {
+            max-width: 440px;
+            color: var(--ink-dim);
+            font-size: 13.5px;
+            line-height: 1.6;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .product-card {
+            padding: 22px;
+        }
+
+        .product-card .thumb {
+            aspect-ratio: 4/3.2;
+            border-radius: 11px;
+            margin-bottom: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card .thumb .grid-overlay {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.14) 1px, transparent 1px);
+            background-size: 18px 18px;
+        }
+
+        .product-card h4 {
+            font-size: 14px;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .product-card .desc {
+            font-size: 12px;
+            color: var(--ink-dim);
+            line-height: 1.55;
+            margin-bottom: 14px;
+            min-height: 36px;
+        }
+
+        .product-card .model {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--ink-faint);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .product-card .quote-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--purple);
+        }
+
+        /* ---------- GALLERY ---------- */
+        .gallery-hero h1 {
+            font-size: clamp(32px, 4.4vw, 54px);
+            max-width: 16ch;
+        }
+
+        .gallery-hero p {
+            margin-top: 18px;
+            max-width: 520px;
+            color: var(--ink-dim);
+            font-size: 15px;
+        }
+
+        .gallery-filters {
+            display: flex;
+            gap: 10px;
+            margin-top: 34px;
+            flex-wrap: wrap;
+        }
+
+        .gallery-filters button {
+            font-family: inherit;
+            font-size: 12.5px;
+            font-weight: 600;
+            padding: 10px 18px;
+            border-radius: 100px;
+            border: 1px solid var(--line);
+            background: transparent;
+            color: var(--ink-dim);
+            cursor: pointer;
+            transition: all .25s;
+        }
+
+        .gallery-filters button.active,
+        .gallery-filters button:hover {
+            border-color: var(--ink);
+            color: var(--ink);
+            background: var(--card);
+        }
+
+        .masonry {
+            column-count: 3;
+            column-gap: 20px;
+            margin-top: 50px;
+        }
+
+        .g-item {
+            break-inside: avoid;
+            margin-bottom: 20px;
+            border-radius: 14px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .g-item .ph {
+            width: 100%;
+            display: block;
+            transition: transform .5s var(--ease);
+        }
+
+        .g-item:hover .ph {
+            transform: scale(1.04);
+        }
+
+        .g-item .cap {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 18px;
+            background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.72));
+            color: #fff;
+            opacity: 0;
+            transition: opacity .35s;
+        }
+
+        .g-item:hover .cap {
+            opacity: 1;
+        }
+
+        .g-item .cap b {
+            font-size: 13px;
+            display: block;
+        }
+
+        .g-item .cap span {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.75);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ---------- CONTACT ---------- */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .contact-grid h1 {
+            font-size: clamp(30px, 4vw, 46px);
+            max-width: 13ch;
+        }
+
+        .contact-grid>.left p.lead {
+            margin-top: 18px;
+            color: var(--ink-dim);
+            font-size: 14.5px;
+            max-width: 440px;
+            line-height: 1.7;
+        }
+
+        .info-list {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .info-list .row {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .info-list .ico {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: var(--grad-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .info-list .ico svg {
+            width: 17px;
+            height: 17px;
+            stroke: var(--purple);
+        }
+
+        .info-list h4 {
+            font-size: 13.5px;
+            margin-bottom: 3px;
+        }
+
+        .info-list p,
+        .info-list a {
+            font-size: 13.5px;
+            color: var(--ink-dim);
+        }
+
+        .map-block {
+            margin-top: 34px;
+            aspect-ratio: 16/8;
+            border-radius: 14px;
+            border: 1px solid var(--line);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 38px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-row.full {
+            grid-template-columns: 1fr;
+        }
+
+        .field {
+            margin-bottom: 18px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--ink-dim);
+        }
+
+        .field input,
+        .field select,
+        .field textarea {
+            width: 100%;
+            padding: 13px 14px;
+            border-radius: 9px;
+            border: 1px solid var(--line);
+            background: var(--paper);
+            font-family: 'Inter', sans-serif;
+            font-size: 13.5px;
+            color: var(--ink);
+            transition: border-color .25s, background .25s;
+        }
+
+        .field input:focus,
+        .field select:focus,
+        .field textarea:focus {
+            outline: none;
+            border-color: var(--purple);
+            background: var(--card);
+        }
+
+        .field textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-card .btn {
+            width: 100%;
+            justify-content: center;
+            margin-top: 6px;
+        }
+
+        .form-note {
+            font-size: 11.5px;
+            color: var(--ink-faint);
+            margin-top: 14px;
+            text-align: center;
+        }
+
+        @media(max-width:1080px) {
+            .cat-grid.cols-5 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media(max-width:980px) {
+
+            .hero-grid,
+            .about-hero,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cat-grid,
+            .why-grid,
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .product-mini-grid,
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .timeline-items {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .masonry {
+                column-count: 2;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width:560px) {
+
+            .cat-grid,
+            .why-grid,
+            .values-grid,
+            .product-mini-grid,
+            .product-grid,
+            .cat-grid.cols-5 {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-items {
+                grid-template-columns: 1fr;
+            }
+
+            .masonry {
+                column-count: 1;
+            }
+
+            .cta-band .wrap {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* ---------- breadcrumb ---------- */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12.5px;
+            color: var(--ink-faint);
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb a {
+            color: var(--ink-dim);
+            transition: color .2s;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--ink);
+        }
+
+        .breadcrumb .sep {
+            color: var(--ink-faint);
+        }
+
+        .breadcrumb .current {
+            color: var(--ink);
+            font-weight: 600;
+        }
+
+        /* ---------- subcategory grid ---------- */
+        .sub-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .sub-card {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .sub-card .sub-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .sub-card h3 {
+            font-size: 15px;
+            line-height: 1.3;
+        }
+
+        .sub-card .sub-count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            color: var(--ink-faint);
+            flex-shrink: 0;
+            white-space: nowrap;
+            padding: 4px 9px;
+            border: 1px solid var(--line);
+            border-radius: 100px;
+        }
+
+        .sub-card p {
+            font-size: 12.5px;
+            color: var(--ink-dim);
+            line-height: 1.55;
+            flex-grow: 1;
+        }
+
+        .sub-card .sub-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .sub-card .sub-link svg {
+            width: 12px;
+            height: 12px;
+            transition: transform .3s var(--ease);
+        }
+
+        .sub-card:hover .sub-link svg {
+            transform: translateX(3px);
+        }
+
+        .cat-hero-banner {
+            border-radius: 20px;
+            padding: 44px 40px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 56px;
+        }
+
+        .cat-hero-banner::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.35));
+        }
+
+        .cat-hero-banner .inner {
+            position: relative;
+            z-index: 1;
+            color: #fff;
+        }
+
+        .cat-hero-banner .inner .tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .cat-hero-banner .inner h1 {
+            font-size: clamp(28px, 3.6vw, 42px);
+            max-width: 20ch;
+        }
+
+        .cat-hero-banner .inner p {
+            margin-top: 14px;
+            max-width: 52ch;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.6;
+        }
+
+        @media(max-width:980px) {
+            .sub-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width:560px) {
+            .sub-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="blueprint"></div>
+
+    <body>
+        <div class="blueprint"></div>
+        <header>
+            <div class="nav-inner">
+                <a href="index.html" class="brand">
+                    <svg viewBox="0 0 100 100" fill="none">
+                        <defs>
+                            <linearGradient id="lg1" x1="0" y1="0" x2="100" y2="100">
+                                <stop offset="0%" stop-color="#7a2c8e" />
+                                <stop offset="40%" stop-color="#c43d8e" />
+                                <stop offset="75%" stop-color="#f5a623" />
+                                <stop offset="100%" stop-color="#e8432f" />
+                            </linearGradient>
+                        </defs>
+                        <ellipse cx="50" cy="52" rx="46" ry="30" transform="rotate(-24 50 52)" stroke="url(#lg1)"
+                            stroke-width="5" fill="none" />
+                        <text x="15" y="66" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="44"
+                            fill="url(#lg1)">KK</text>
+                    </svg>
+                    <span class="name">KK Enterprises<small>Pharmacy Lab Instruments</small></span>
+                </a>
+                <nav class="links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <div class="has-dropdown">
+                        <button aria-expanded="false" aria-haspopup="true">Products
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </button>
+                        <div class="dropdown">
+                            <a href="pharma-chemistry.html"><span class="swatch"
+                                    style="background:#7a2c8e"></span><span><span
+                                        style="display:block;color:var(--ink);font-weight:600;">Pharmaceutical
+                                        Chemistry</span><span class="cat-desc">Balances, distillation, titration &
+                                        analytical instruments</span></span></a>
+                            <a href="pharma-microbiology.html"><span class="swatch"
+                                    style="background:#c43d8e"></span><span><span
+                                        style="display:block;color:var(--ink);font-weight:600;">Pharmaceutical
+                                        Microbiology</span><span class="cat-desc">Sterilisation, filtration & aseptic
+                                        technique equipment</span></span></a>
+                            <a href="pharmaceutics.html"><span class="swatch"
+                                    style="background:#f5a623"></span><span><span
+                                        style="display:block;color:var(--ink);font-weight:600;">Pharmaceutics</span><span
+                                        class="cat-desc">Formulation, drying, dissolution & dosage-form
+                                        equipment</span></span></a>
+                            <a href="pharmacognosy.html"><span class="swatch"
+                                    style="background:#e8432f"></span><span><span
+                                        style="display:block;color:var(--ink);font-weight:600;">Pharmacognosy</span><span
+                                        class="cat-desc">Microscopy & crude-drug identification
+                                        equipment</span></span></a>
+                            <a href="anatomy-physiology.html"><span class="swatch"
+                                    style="background:#a13a5e"></span><span><span
+                                        style="display:block;color:var(--ink);font-weight:600;">Human Anatomy &
+                                        Physiology</span><span class="cat-desc">Recording, stimulation & physiology
+                                        demonstration kits</span></span></a>
+                            <div class="dropdown-divider"></div>
+                            <a href="products.html" class="view-all">View all products →</a>
+                        </div>
+                    </div>
+                    <a href="gallery.html">Gallery</a>
+                    <a href="contact.html">Contact</a>
+                </nav>
+                <a href="contact.html" class="nav-cta">Request a quote</a>
+                <button class="menu-toggle" aria-label="Menu">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.2">
+                        <path d="M3 6h18M3 12h18M3 18h18" />
+                    </svg>
+                </button>
+            </div>
+            <div class="mobile-nav">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <span class="grp">Products</span>
+                <a href="pharma-chemistry.html">Pharmaceutical Chemistry</a>
+                <a href="pharma-microbiology.html">Pharmaceutical Microbiology</a>
+                <a href="pharmaceutics.html">Pharmaceutics</a>
+                <a href="pharmacognosy.html">Pharmacognosy</a>
+                <a href="anatomy-physiology.html">Human Anatomy & Physiology</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </header>
+        <main>
+
+            <section class="product-hero" style="padding-bottom:0;">
+                <div class="wrap">
+                    <div class="breadcrumb">
+                        <a href="index.html">Home</a><span class="sep">/</span>
+                        <a href="products.html">Products</a><span class="sep">/</span>
+                        <span class="current">Pharmaceutics</span>
+                    </div>
+                    <div class="cat-hero-banner" style="background:linear-gradient(160deg,#f5a623,#a35b12);">
+                        <div class="inner">
+                            <span class="tag mono">23 subcategories &middot; 46 products</span>
+                            <h1>Pharmaceutics</h1>
+                            <p>Formulation, drying, dissolution and dosage-form equipment covering the full
+                                pharmaceutics syllabus.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section style="padding-top:0;">
+                <div class="wrap">
+                    <div class="section-head">
+                        <h2>All Pharmaceutics products</h2>
+                        <p class="section-note">Photos and full specification sheets for each model are being finalized
+                            — placeholder visuals are shown below. Contact us for datasheets or bulk institutional
+                            pricing.</p>
+                    </div>
+                    <div class="product-grid">
+                        <div class="spec-card product-card reveal">
+                            <div class="thumb" style="background:linear-gradient(160deg,#f5a623,#a35b12);">
+                                <div class="grid-overlay"></div>
+                            </div>
+                            <h4>Tablet Dissolution Test Apparatus</h4>
+                            <p class="model mono">KKP-DT6</p>
+                            <p class="desc">6-station USP paddle/basket apparatus with digital speed and temperature
+                                control.</p>
+                            <a href="contact.html" class="quote-link">Request a quote
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.6">
+                                    <path d="M5 12h14M13 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="spec-card product-card reveal">
+                            <div class="thumb" style="background:linear-gradient(160deg,#f5a623,#a35b12);">
+                                <div class="grid-overlay"></div>
+                            </div>
+                            <h4>Tablet Hardness Tester</h4>
+                            <p class="model mono">KKP-TH1</p>
+                            <p class="desc">Motorized tester for measuring crushing strength of compressed tablets.</p>
+                            <a href="contact.html" class="quote-link">Request a quote
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.6">
+                                    <path d="M5 12h14M13 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="spec-card product-card reveal">
+                            <div class="thumb" style="background:linear-gradient(160deg,#f5a623,#a35b12);">
+                                <div class="grid-overlay"></div>
+                            </div>
+                            <h4>Friability Test Apparatus</h4>
+                            <p class="model mono">KKP-FT1</p>
+                            <p class="desc">Dual-drum apparatus for tablet friability testing per pharmacopoeial limits.
+                            </p>
+                            <a href="contact.html" class="quote-link">Request a quote
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.6">
+                                    <path d="M5 12h14M13 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="spec-card product-card reveal">
+                            <div class="thumb" style="background:linear-gradient(160deg,#f5a623,#a35b12);">
+                                <div class="grid-overlay"></div>
+                            </div>
+                            <h4>Disintegration Test Apparatus</h4>
+                            <p class="model mono">KKP-DI6</p>
+                            <p class="desc">6-tube basket-rack assembly with thermostatic water bath.</p>
+                            <a href="contact.html" class="quote-link">Request a quote
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.6">
+                                    <path d="M5 12h14M13 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="spec-card product-card reveal">
+                            <div class="thumb" style="background:linear-gradient(160deg,#f5a623,#a35b12);">
+                                <div class="grid-overlay"></div>
+                            </div>
+                            <h4>Tablet Compression Machine</h4>
+                            <p class="model mono">KKP-TC10</p>
+                            <p class="desc">10-station rotary machine for teaching-scale tablet compression.</p>
+                            <a href="contact.html" class="quote-link">Request a quote
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.6">
+                                    <path d="M5 12h14M13 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="spec-card product-card reveal">
+                            <div class="thumb" style="background:linear-gradient(160deg,#f5a623,#a35b12);">
+                                <div class="grid-overlay"></div>
+                            </div>
+                            <h4>Capsule Filling Machine</h4>
+                            <p class="model mono">KKP-CF100</p>
+                            <p class="desc">Manual board-type machine for filling hard gelatin capsules.</p>
+                            <a href="contact.html" class="quote-link">Request a quote
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.6">
+                                    <path d="M5 12h14M13 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="spec-card product-card reveal">
+                            <div class="thumb" style="background:linear-gradient(160deg,#f5a623,#a35b12);">
+                                <div class="grid-overlay"></div>
+                            </div>
+                            <h4>Fluidized Bed Dryer</h4>
+                            <p class="model mono">KKP-FD2</p>
+                            <p class="desc">Bench-top dryer for granule drying via fluidized air bed.</p>
+                            <a href="contact.html" class="quote-link">Request a quote
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.6">
+                                    <path d="M5 12h14M13 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="spec-card product-card reveal">
+                            <div class="thumb" style="background:linear-gradient(160deg,#f5a623,#a35b12);">
+                                <div class="grid-overlay"></div>
+                            </div>
+                            <h4>Ointment Mill, Triple Roller</h4>
+                            <p class="model mono">KKP-OM3</p>
+                            <p class="desc">Three-roller mill for fine dispersion of semisolid formulations.</p>
+                            <a href="contact.html" class="quote-link">Request a quote
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.6">
+                                    <path d="M5 12h14M13 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="spec-card product-card reveal">
+                            <div class="thumb" style="background:linear-gradient(160deg,#f5a623,#a35b12);">
+                                <div class="grid-overlay"></div>
+                            </div>
+                            <h4>Suppository Mould</h4>
+                            <p class="model mono">KKP-SM12</p>
+                            <p class="desc">12-cavity aluminium mould for suppository preparation.</p>
+                            <a href="contact.html" class="quote-link">Request a quote
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.6">
+                                    <path d="M5 12h14M13 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="spec-card product-card reveal">
+                            <div class="thumb" style="background:linear-gradient(160deg,#f5a623,#a35b12);">
+                                <div class="grid-overlay"></div>
+                            </div>
+                            <h4>Sieve Shaker, Electric</h4>
+                            <p class="model mono">KKP-SS8</p>
+                            <p class="desc">8-sieve stack shaker for particle size distribution analysis.</p>
+                            <a href="contact.html" class="quote-link">Request a quote
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.6">
+                                    <path d="M5 12h14M13 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="spec-card product-card reveal">
+                            <div class="thumb" style="background:linear-gradient(160deg,#f5a623,#a35b12);">
+                                <div class="grid-overlay"></div>
+                            </div>
+                            <h4>Viscometer, Rotational</h4>
+                            <p class="model mono">KKP-VS2</p>
+                            <p class="desc">Digital rotational viscometer for liquid and semisolid formulations.</p>
+                            <a href="contact.html" class="quote-link">Request a quote
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.6">
+                                    <path d="M5 12h14M13 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="spec-card product-card reveal">
+                            <div class="thumb" style="background:linear-gradient(160deg,#f5a623,#a35b12);">
+                                <div class="grid-overlay"></div>
+                            </div>
+                            <h4>Bulk Density Apparatus</h4>
+                            <p class="model mono">KKP-BD1</p>
+                            <p class="desc">Tapped-density apparatus for powder flow characterization.</p>
+                            <a href="contact.html" class="quote-link">Request a quote
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.6">
+                                    <path d="M5 12h14M13 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cta-band">
+                <div class="wrap">
+                    <div>
+                        <h2>Need a custom spec?</h2>
+                        <p>We manufacture apparatus to institutional specification &mdash; send us your syllabus
+                            reference or drawing.</p>
+                    </div>
+                    <a href="contact.html" class="btn btn-grad">Talk to sales
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.4">
+                            <path d="M5 12h14M13 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+            </section>
+
+        </main>
+        <footer>
+            <div class="foot-grid">
+                <div class="foot-brand">
+                    <a href="index.html" class="brand">
+                        <svg viewBox="0 0 100 100" fill="none">
+                            <defs>
+                                <linearGradient id="lg1" x1="0" y1="0" x2="100" y2="100">
+                                    <stop offset="0%" stop-color="#7a2c8e" />
+                                    <stop offset="40%" stop-color="#c43d8e" />
+                                    <stop offset="75%" stop-color="#f5a623" />
+                                    <stop offset="100%" stop-color="#e8432f" />
+                                </linearGradient>
+                            </defs>
+                            <ellipse cx="50" cy="52" rx="46" ry="30" transform="rotate(-24 50 52)" stroke="url(#lg1)"
+                                stroke-width="5" fill="none" />
+                            <text x="15" y="66" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="44"
+                                fill="url(#lg1)">KK</text>
+                        </svg>
+                        <span class="name">KK Enterprises<small>Pharmacy Lab Instruments</small></span>
+                    </a>
+                    <p>Manufacturing laboratory equipment for pharmacy colleges — pharmaceutical chemistry,
+                        microbiology, pharmaceutics, pharmacognosy and physiology labs — since 1994.</p>
+                </div>
+                <div class="foot-cols">
+                    <div class="foot-col">
+                        <h4 class="mono">Products</h4>
+                        <a href="pharma-chemistry.html">Pharmaceutical Chemistry</a>
+                        <a href="pharma-microbiology.html">Pharmaceutical Microbiology</a>
+                        <a href="pharmaceutics.html">Pharmaceutics</a>
+                        <a href="pharmacognosy.html">Pharmacognosy</a>
+                        <a href="anatomy-physiology.html">Anatomy &amp; Physiology</a>
+                    </div>
+                    <div class="foot-col">
+                        <h4 class="mono">Company</h4>
+                        <a href="about.html">About Us</a>
+                        <a href="gallery.html">Gallery</a>
+                        <a href="contact.html">Contact</a>
+                        <a href="contact.html">Request a Quote</a>
+                    </div>
+                    <div class="foot-col">
+                        <h4 class="mono">Contact</h4>
+                        <a href="tel:+911832345678">+91 183 234 5678</a>
+                        <a href="mailto:sales@kkenterprises.in">sales@kkenterprises.in</a>
+                        <a href="contact.html">Focal Point, Amritsar, Punjab</a>
+                    </div>
+                </div>
+            </div>
+            <div class="foot-bottom">
+                <p>© 2026 KK Enterprises. All rights reserved.</p>
+                <p>ISO 9001:2015 Certified Manufacturer</p>
+            </div>
+        </footer>
+        <script>
+            const revealEls = document.querySelectorAll('.reveal');
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+                });
+            }, { threshold: 0.14 });
+            revealEls.forEach((el, i) => { el.style.transitionDelay = (i % 4) * 0.06 + 's'; io.observe(el); });
+
+            document.querySelectorAll('.has-dropdown > button').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const dd = btn.nextElementSibling;
+                    const isOpen = dd.classList.contains('open');
+                    document.querySelectorAll('.dropdown.open').forEach(d => d.classList.remove('open'));
+                    document.querySelectorAll('.has-dropdown > button').forEach(b => b.setAttribute('aria-expanded', 'false'));
+                    if (!isOpen) { dd.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+                });
+            });
+            document.addEventListener('click', () => {
+                document.querySelectorAll('.dropdown.open').forEach(d => d.classList.remove('open'));
+                document.querySelectorAll('.has-dropdown > button').forEach(b => b.setAttribute('aria-expanded', 'false'));
+            });
+
+            const menuToggle = document.querySelector('.menu-toggle');
+            const mobileNav = document.querySelector('.mobile-nav');
+            if (menuToggle && mobileNav) {
+                menuToggle.addEventListener('click', () => {
+                    mobileNav.classList.toggle('open');
+                    menuToggle.classList.toggle('open');
+                });
+            }
+
+            const header = document.querySelector('header');
+            if (header) {
+                window.addEventListener('scroll', () => {
+                    header.classList.toggle('scrolled', window.scrollY > 30);
+                }, { passive: true });
+            }
+
+        </script>
+    </body>
+
+</html>
